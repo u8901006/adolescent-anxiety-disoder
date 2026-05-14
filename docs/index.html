@@ -13,9 +13,20 @@
   h1 { text-align: center; font-size: 24px; color: var(--text); margin-bottom: 4px; }
   .subtitle-en { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
   .subtitle { text-align: center; color: var(--accent); font-size: 14px; margin-bottom: 48px; }
-  .coming-soon { text-align: center; color: var(--muted); font-size: 15px; margin-top: 32px; padding: 40px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+  .count { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+  ul { list-style: none; }
+  li { margin-bottom: 8px; }
+  a { color: var(--text); text-decoration: none; display: block; padding: 14px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; transition: all 0.2s; font-size: 15px; }
+  a:hover { background: var(--accent-soft); border-color: var(--accent); transform: translateX(4px); }
+  .clinic-banner { margin-top: 48px; }
+  .clinic-links { display: flex; flex-direction: column; gap: 10px; }
+  .clinic-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.2s; }
+  .clinic-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .clinic-icon { font-size: 22px; }
+  .clinic-name { font-size: 14px; font-weight: 600; }
+  .clinic-arrow { margin-left: auto; color: var(--accent); font-weight: 700; }
   footer { margin-top: 56px; text-align: center; font-size: 12px; color: var(--muted); }
-  footer a { color: var(--muted); text-decoration: none; }
+  footer a { display: inline; padding: 0; background: none; border: none; color: var(--muted); }
   footer a:hover { color: var(--accent); }
 </style>
 </head>
@@ -25,7 +36,30 @@
   <h1>青少年焦慮症文獻日報</h1>
   <p class="subtitle-en">Adolescent Anxiety Disorders Daily Literature Report</p>
   <p class="subtitle">每日自動更新 · Powered by PubMed + Zhipu AI</p>
-  <div class="coming-soon">📅 第一期日報即將發布，敬請期待...</div>
+  <p class="count">共 1 期日報</p>
+  <ul><li><a href="anxiety-2026-05-14.html">📅 2026年5月14日（週四）</a></li>
+</ul>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://buymeacoffee.com/CYlee" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">☕</span>
+        <span class="clinic-name">Buy Me a Coffee</span>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
   <footer>
     <p>Powered by PubMed + Zhipu AI · <a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></p>
   </footer>
