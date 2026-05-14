@@ -1,7 +1,6 @@
 import { writeFileSync, existsSync, readFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { parseArgs } from 'node:util';
-import { XMLParser } from './xml_parser.js';
 
 const PUBMED_SEARCH = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi';
 const PUBMED_FETCH = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi';
@@ -164,74 +163,76 @@ async function searchPapers(query, retmax = 50) {
   }
 }
 
-function parseXML(xml) {
-  const parser = new XMLParser();
-  return parser.parse(xml);
+function extractBetween(xml, startTag, endTag) {
+  const startIdx = xml.indexOf(startTag);
+  if (startIdx === -1) return '';
+  const contentStart = startIdx + startTag.length;
+  const endIdx = xml.indexOf(endTag, contentStart);
+  if (endIdx === -1) return '';
+  return xml.substring(contentStart, endIdx);
+}
+
+function extractAllBetween(xml, startTag, endTag) {
+  const results = [];
+  let searchFrom = 0;
+  while (true) {
+    const startIdx = xml.indexOf(startTag, searchFrom);
+    if (startIdx === -1) break;
+    const contentStart = startIdx + startTag.length;
+    const endIdx = xml.indexOf(endTag, contentStart);
+    if (endIdx === -1) break;
+    results.push(xml.substring(contentStart, endIdx));
+    searchFrom = endIdx + endTag.length;
+  }
+  return results;
+}
+
+function stripTags(xml) {
+  return xml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function extractPapers(xml) {
-  const result = parseXML(xml);
-  const articles = result?.PubmedArticleSet?.PubmedArticle ?? [];
+  const articleChunks = extractAllBetween(xml, '<PubmedArticle>', '</PubmedArticle>');
   const papers = [];
 
-  for (const article of Array.isArray(articles) ? articles : [articles]) {
+  for (const chunk of articleChunks) {
     try {
-      const medline = article?.MedlineCitation;
-      const art = medline?.Article;
-      if (!art) continue;
+      const pmidRaw = extractBetween(chunk, '<PMID', '</PMID>');
+      const pmid = pmidRaw.replace(/^[^>]*>/, '').trim();
 
-      const titleEl = art?.ArticleTitle;
-      const title = (typeof titleEl === 'string' ? titleEl : titleEl?.['#text'] ?? '')?.trim() ?? '';
+      const titleRaw = extractBetween(chunk, '<ArticleTitle>', '</ArticleTitle>');
+      const title = stripTags(titleRaw).trim() || stripTags(extractBetween(chunk, '<ArticleTitle', '</ArticleTitle>')).trim();
 
-      const abstractParts = [];
-      const abstractTexts = art?.Abstract?.AbstractText;
-      if (abstractTexts) {
-        const texts = Array.isArray(abstractTexts) ? abstractTexts : [abstractTexts];
-        for (const absEl of texts) {
-          if (typeof absEl === 'string') {
-            abstractParts.push(absEl);
-          } else {
-            const label = absEl?.['@_Label'] ?? '';
-            const text = absEl?.['#text'] ?? '';
-            if (label && text) abstractParts.push(`${label}: ${text}`);
-            else if (text) abstractParts.push(text);
-          }
-        }
-      }
-      const abstract = abstractParts.join(' ').slice(0, 2000);
+      const abstractSection = extractBetween(chunk, '<Abstract>', '</Abstract>');
+      const abstractParts = extractAllBetween(abstractSection, '<AbstractText', '</AbstractText>');
+      const abstractTexts = abstractParts.map((part) => {
+        const labelMatch = part.match(/^([^>]*Label="([^"]*)")?>/);
+        const label = labelMatch?.[2] ?? '';
+        const text = stripTags(part.replace(/^[^>]*>?/, '')).trim();
+        if (label && text) return `${label}: ${text}`;
+        return text;
+      });
+      const abstract = abstractTexts.join(' ').slice(0, 2000);
 
-      const journal = art?.Journal?.Title?.trim() ?? '';
-      const pubDate = art?.Journal?.JournalIssue?.PubDate;
-      const dateParts = [
-        pubDate?.Year,
-        pubDate?.Month,
-        pubDate?.Day,
-      ].filter(Boolean);
-      const dateStr = dateParts.join(' ');
+      const journal = stripTags(extractBetween(chunk, '<Title>', '</Title>')).trim();
 
-      const pmid = medline?.PMID?.['#text'] ?? medline?.PMID ?? '';
+      const pubDateChunk = extractBetween(chunk, '<PubDate>', '</PubDate>');
+      const year = stripTags(extractBetween(pubDateChunk, '<Year>', '</Year>')).trim();
+      const month = stripTags(extractBetween(pubDateChunk, '<Month>', '</Month>')).trim();
+      const day = stripTags(extractBetween(pubDateChunk, '<Day>', '</Day>')).trim();
+      const dateStr = [year, month, day].filter(Boolean).join(' ');
+
       const url = pmid ? `https://pubmed.ncbi.nlm.nih.gov/${pmid}/` : '';
 
-      const keywords = [];
-      const kwList = medline?.KeywordList?.Keyword;
-      if (kwList) {
-        for (const kw of Array.isArray(kwList) ? kwList : [kwList]) {
-          const kwText = typeof kw === 'string' ? kw : kw?.['#text'];
-          if (kwText) keywords.push(kwText.trim());
-        }
-      }
+      const keywordChunks = extractAllBetween(chunk, '<Keyword>', '</Keyword>');
+      const keywords = keywordChunks.map(stripTags).map((s) => s.trim()).filter(Boolean);
 
-      const meshTerms = [];
-      const meshList = medline?.MeshHeadingList?.MeshHeading;
-      if (meshList) {
-        for (const mesh of Array.isArray(meshList) ? meshList : [meshList]) {
-          const desc = mesh?.DescriptorName;
-          const name = typeof desc === 'string' ? desc : desc?.['#text'];
-          if (name) meshTerms.push(name);
-        }
-      }
+      const meshChunks = extractAllBetween(chunk, '<DescriptorName', '</DescriptorName>');
+      const meshTerms = meshChunks.map(stripTags).map((s) => s.trim()).filter(Boolean);
 
-      papers.push({ pmid, title, journal, date: dateStr, abstract, url, keywords, meshTerms });
+      if (title || pmid) {
+        papers.push({ pmid, title, journal, date: dateStr, abstract, url, keywords, meshTerms });
+      }
     } catch {
       continue;
     }
