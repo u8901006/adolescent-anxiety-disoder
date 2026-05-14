@@ -1,0 +1,19 @@
+{
+  "name": "adolescent-anxiety-disorder-daily",
+  "version": "1.0.0",
+  "description": "Adolescent Anxiety Disorders daily literature report",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "fetch": "node scripts/fetch_papers.js",
+    "report": "node scripts/generate_report.js",
+    "index": "node scripts/generate_index.js",
+    "build": "node scripts/fetch_papers.js && node scripts/generate_report.js && node scripts/generate_index.js"
+  },
+  "dependencies": {
+    "undici": "^7.8.0"
+  }
+}
