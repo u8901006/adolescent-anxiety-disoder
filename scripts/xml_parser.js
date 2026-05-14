@@ -21,22 +21,16 @@ export class XMLParser {
         }
         if (xml[i + 1] === '/') {
           const end = xml.indexOf('>', i);
-          const tagName = xml.substring(i + 2, end).trim();
+          const closedTag = xml.substring(i + 2, end).trim();
           const current = stack.pop();
           tagStack.pop();
           const parent = stack[stack.length - 1];
-          const parentTag = tagStack[tagStack.length - 1];
-          if (parentTag) {
-            if (parent[parentTag] === undefined) {
-              parent[parentTag] = current;
-            } else if (Array.isArray(parent[parentTag])) {
-              parent[parentTag].push(current);
-            } else {
-              parent[parentTag] = [parent[parentTag], current];
-            }
+          if (parent[closedTag] === undefined) {
+            parent[closedTag] = current;
+          } else if (Array.isArray(parent[closedTag])) {
+            parent[closedTag].push(current);
           } else {
-            stack.push(current);
-            tagStack.push(tagName);
+            parent[closedTag] = [parent[closedTag], current];
           }
           i = end + 1;
           continue;
