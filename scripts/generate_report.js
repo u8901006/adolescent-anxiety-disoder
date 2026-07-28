@@ -2,15 +2,11 @@ import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { parseArgs } from 'node:util';
 
-const API_BASE = process.env.ZHIPU_API_BASE ?? 'https://open.bigmodel.cn/api/coding/paas/v4';
+const API_BASE = 'https://integrate.api.nvidia.com/v1';
 
 const MODEL_FALLBACK_CHAIN = [
-  'glm-5-turbo',
-  'GLM-5-Turbo',
-  'glm-4.7',
-  'GLM-4.7',
-  'glm-4.7-flash',
-  'GLM-4.7-Flash',
+  'nvidia/nemotron-3-super-120b-a12b',
+  'nvidia/nemotron-3-nano-30b-a3b',
 ];
 
 const SYSTEM_PROMPT = `你是青少年焦慮症研究領域的專業文獻分析師。你的任務是：
@@ -73,7 +69,7 @@ function robustJSONParse(text) {
   throw new Error('Failed to parse JSON from AI response');
 }
 
-async function callZhipuAPI(apiKey, model, papersData) {
+async function callNvidiaAPI(apiKey, model, papersData) {
   const dateStr = papersData.date;
   const paperCount = papersData.count;
   const papersText = JSON.stringify(papersData.papers, null, 2);
@@ -137,9 +133,11 @@ ${papersText}
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: prompt },
     ],
-    temperature: 0.3,
-    top_p: 0.9,
-    max_tokens: 50000,
+    temperature: 1.0,
+    top_p: 0.95,
+    max_tokens: 16384,
+    stream: false,
+    chat_template_kwargs: { enable_thinking: false },
   };
 
   const headers = {
@@ -175,7 +173,7 @@ async function analyzePapers(apiKey, papersData) {
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
         console.error(`[INFO] Trying ${model} (attempt ${attempt + 1})...`);
-        const result = await callZhipuAPI(apiKey, model, papersData);
+        const result = await callNvidiaAPI(apiKey, model, papersData);
         console.error(`[INFO] Analysis complete: ${(result.top_picks ?? []).length} top picks, ${(result.all_papers ?? []).length} total`);
         return { result, model };
       } catch (e) {
@@ -375,7 +373,7 @@ function generateHTML(analysis, modelUsed) {
       <div class="header-meta">
         <span class="badge badge-date">📅 ${dateDisplay}（週${weekday}）</span>
         <span class="badge badge-count">📊 ${totalCount} 篇文獻</span>
-        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
       </div>
     </div>
   </header>
@@ -423,7 +421,7 @@ function generateHTML(analysis, modelUsed) {
   </div>
 
   <footer>
-    <span>資料來源：PubMed &middot; 分析模型：${esc(modelUsed ?? 'GLM-5-Turbo')}</span>
+    <span>資料來源：PubMed &middot; 分析模型：${esc(modelUsed ?? 'nvidia/nemotron-3-super-120b-a12b')}</span>
     <span><a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></span>
   </footer>
 </div>
@@ -454,20 +452,20 @@ async function main() {
     options: {
       input: { type: 'string', default: 'papers.json' },
       output: { type: 'string', required: true },
-      'api-key': { type: 'string', default: process.env.ZHIPU_API_KEY ?? '' },
+      'api-key': { type: 'string', default: process.env.NVIDIA_API_KEY ?? '' },
     },
   });
 
   const apiKey = values['api-key'];
   if (!apiKey) {
-    console.error('[ERROR] No API key. Set ZHIPU_API_KEY env var or use --api-key');
+    console.error('[ERROR] No API key. Set NVIDIA_API_KEY env var or use --api-key');
     process.exit(1);
   }
 
   const papersData = loadPapers(values.input);
 
   let analysis;
-  let modelUsed = 'GLM-5-Turbo';
+  let modelUsed = 'nvidia/nemotron-3-super-120b-a12b';
 
   if (!papersData?.papers?.length) {
     console.error('[WARN] No papers found, generating empty report');

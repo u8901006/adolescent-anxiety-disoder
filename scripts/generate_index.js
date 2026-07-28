@@ -72,7 +72,7 @@ function generateIndex() {
   <div class="logo">🧒</div>
   <h1>青少年焦慮症文獻日報</h1>
   <p class="subtitle-en">Adolescent Anxiety Disorders Daily Literature Report</p>
-  <p class="subtitle">每日自動更新 · Powered by PubMed + Zhipu AI</p>
+  <p class="subtitle">每日自動更新 · Powered by PubMed + NVIDIA AI</p>
   <p class="count">共 ${total} 期日報</p>
   <ul>${links}</ul>
 
@@ -97,7 +97,7 @@ function generateIndex() {
   </div>
 
   <footer>
-    <p>Powered by PubMed + Zhipu AI · <a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></p>
+    <p>Powered by PubMed + NVIDIA AI · <a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></p>
   </footer>
 </div>
 </body>
