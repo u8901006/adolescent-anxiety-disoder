@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>青少年焦慮症文獻日報 &middot; 2026年8月5日</title>
+<meta name="description" content="2026年8月5日 青少年焦慮症文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; margin-top: 8px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 100px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.3s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 12px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 70px; font-size: 11px; } .clinic-links { gap: 8px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🧒</div>
+    <div class="header-text">
+      <h1>青少年焦慮症文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年8月5日（週三）</span>
+        <span class="badge badge-count">📊 24 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日青少年焦慮症研究聚焦於社會結構因素（如家庭心理疾病、經濟不安全）與內化症狀的關聯，以及數位行為（問題性社交媒體使用）對內化問題的影響。研究強調創傷知照與性別差異的重要性，提醒臨床需整合家庭、社會與數位環境進行早期識別與介入。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🏠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>家庭心理疾與經濟不安全對青少年飲食行為障礙的影響：PLATE 研究</h3>
+          <p class="journal-source">JAACAP open &middot; Associations Between Adverse Childhood Experiences and Disordered Childhood with Household Mental Illness and Economic Insecurity: The PLATE Study</p>
+          <p>家庭心理疾病與經濟不安全是青少年飲食行為障礙的最強預測因子，其影響主要透過焦慮、憂鬱及食物不安全進行中介，提示創傷知照評估的重要性。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">美國10至17歲青少年 (N=47,617)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式研究）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無不良童年經驗者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">飲食行為障礙 (DEBs)，特別是體重控制行為</span></div>
+            </div>
+          <p class="utility-reason">💡 識出高風險家庭背景，可作為早期篩檢與預防干擾的關鍵指標，尤其在貧困脈絡下需關注食物不安全與內化症狀。</p>
+          <div class="card-footer">
+            <span class="tag">家庭因素</span><span class="tag">創傷</span><span class="tag">健康不平等</span><span class="tag">篩檢工具</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42534413/" target="_blank" rel="noopener">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">📱</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>問題性社交媒體使用與青少年內化問題的關聯：強調性別差異與使用品質而非單純時長</h3>
+          <p class="journal-source">Journal of affective disorders &middot; Behind the screen: Social media use and internalizing problems in adolescents</p>
+          <p>問題性社交媒體使用（而非單純使用時長）與內化問題顯著相關，尤其在女生中較為顯著，提醒需區分使用行為與功能障礙。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">15歲及18歲高風險青少年 (N=866，iBerry 研究)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（追蹤式觀察）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">低問題性使用者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">內化問題（焦慮與憂鬱）</span></div>
+            </div>
+          <p class="utility-reason">💡 提醒臨床評估時應關注社交媒體使用的問題性特徵（如強迫性使用），而非僅計算螢幕時間，具介入設計參考價值。</p>
+          <div class="card-footer">
+            <span class="tag">社交媒體</span><span class="tag">內化問題</span><span class="tag">性別差異</span><span class="tag">數位介入</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42546779/" target="_blank" rel="noopener">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">👨‍👩‍👧‍👦</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>孤獨與性別多樣性青少年：兄弟姊妹欺凌為關鍵風險放大因子</h3>
+          <p class="journal-source">JAACAP open &middot; Loneliness and Bullying by Siblings in Gender-Diverse Adolescents: Results From the Population-Based Generation R Study</p>
+          <p>性別多樣性青少年孤獨感較高，且被兄弟姊妹欺凌會顯著加劇此關聯，提示家庭內人際關係需納入風險評估。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">13至15歲性別多樣性青少年 (N=4,424，Generation R 研究)</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">非性別多樣性 peers</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">孤獨感（控制憂鬱與焦慮後仍顯著）</span></div>
+            </div>
+          <p class="utility-reason">💡 凸顯兄弟姊妹關係在性別多樣性青少年心理健康中的調節作用，提醒家庭介入應擴展至兄弟姊妹互動模式。</p>
+          <div class="card-footer">
+            <span class="tag">孤獨</span><span class="tag">性別多樣性</span><span class="tag">兄弟姊妹關係</span><span class="tag">霸凌</span><span class="tag">家庭因素</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42534685/" target="_blank" rel="noopener">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">🔬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>青少年抑鬱症中BMI與炎症標記物的關聯：尤其在女性中顯著</h3>
+          <p class="journal-source">Journal of affective disorders &middot; Exploratory study of the association between blood immune markers and clinical symptoms in adolescent depression: Stratified by body mass index</p>
+          <p>在青少年抑鬱症中，較高BMI與較嚴重抑鬱症狀相關，此關聯部分由中性球細胞與單球/淋巴球比例（MLR）介導，尤其在女性中更顯著。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">被診斷為MDD的青少年 (N=339)，依BMI分層</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式相關研究）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">正常體重組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">抑鬱症狀嚴重程度 (HAMD)，炎症標記物 (Neutrophils, MLR, hs-CRP 等)</span></div>
+            </div>
+          <p class="utility-reason">💡 提示體重與炎症可能是青少年抑鬱的生物學途徑，支持身心整合治療的考量，特別是針對女生的風險分層。</p>
+          <div class="card-footer">
+            <span class="tag">生理指標</span><span class="tag">廣泛性焦慮</span><span class="tag">性別差異</span><span class="tag">實施科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42543132/" target="_blank" rel="noopener">閱讀原文 →</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🏫</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>校本心理社會介入對中東地區衝突影響青少年的效果：創傷與情緒行為改善顯著</h3>
+          <p class="journal-source">Journal of public health (Oxford, England) &middot; School-based psychosocial interventions for refugee and conflict-affected adolescents in Middle Eastern countries: a systematic review and meta-analysis</p>
+          <p>校本心理社會介入於中東衝突地區顯著減少創傷後應激症狀與情緒行為困難，但對憂鬃與焦慮效果不明確，提示需針對性設計。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">中東難民及衝突影響青少年（主要來自敘利亞、巴勒斯坦、阿富汗）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">校本心理社會介入</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組或前後比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">PTSD、焦慮、憂鬃、情緒行為困難</span></div>
+            </div>
+          <p class="utility-reason">💡 提供人道主義教育中可實施的證據為基礎介入方案，尤其適合資源有限環境，強調情緒調整與創傷處理的核心價值。</p>
+          <div class="card-footer">
+            <span class="tag">學校介入</span><span class="tag">創傷</span><span class="tag">健康不平等</span><span class="tag">PTSD</span><span class="tag">情緒調節</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42525835/" target="_blank" rel="noopener">閱讀原文 →</a>
+          </div>
+        </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>自閉症與ADHD特質對學齡兒童社會適應與心理健康的縱向關聯</h3>
+          <p class="journal-source">Psychological medicine</p>
+          <p>ASD特質與後續內化問題及同儕困難相關，ADHD特質則預測內化、外化問題及學習挑戰，提示兩種神經發育特質具不同發展路徑。</p>
+          <div class="card-footer">
+            <span class="tag">廣泛性焦慮</span><span class="tag">長期追蹤</span><span class="tag">同儕關係</span><span class="tag">學校介入</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42548071/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📊</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>兒童ADHD共病症狀類型與功能表現的關聯：複雜共病組功能受損最廣泛</h3>
+          <p class="journal-source">Journal of clinical child and adolescent psychology</p>
+          <p>ADHD+複雜型佔樣本40.8%，在學業、社交、紀律等多方面顯示功能受損，即使控制ADHD嚴重度後仍顯著，提示需超越單一症狀評估。</p>
+          <div class="card-footer">
+            <span class="tag">學校介入</span><span class="tag">併存症</span><span class="tag">功能評估</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42546177/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💡</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>青少年結紮疼痛中的簡短心理教育介入對功能無效但可減少痛苦相關信念</h3>
+          <p class="journal-source">The Journal of orthopaedic and sports physical therapy</p>
+          <p>簡短心理教育介入未改善功能或疼痛，但可顯著減少恐懪迴避與災難化思維，提示認知改變可能先於行為改善。</p>
+          <div class="card-footer">
+            <span class="tag">CBT</span><span class="tag">疼痛管理</span><span class="tag">介入研究</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42538789/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📚</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>中國晚 adolescences 考試週負面情緒動態在父母情緒社會化與心理症狀之間的中介作用</h3>
+          <p class="journal-source">Journal of research on adolescence</p>
+          <p>母親不支持性情緒社會化經過考試週負面情緒反應增強而增加青少年焦慮憂鬱，支持性社會化則透過情緒下調減少焦慮，凸顯母親角色。</p>
+          <div class="card-footer">
+            <span class="tag">家庭因素</span><span class="tag">正念</span><span class="tag">壓力</span><span class="tag">情緒調節</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42538725/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👪</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>父母心理控制與兒童青少年社交焦慮的三層級meta分析：母親影響較大，東方文化關聯更強</h3>
+          <p class="journal-source">Psychological reports</p>
+          <p>父母心理控制與社交焦慮正相關，母親影響較父親為大，愛的撤回與權威主張比罪惡誘導影響更強，東方文化顯示較強關聯但樣本不平衡需謹慎解讀。</p>
+          <div class="card-footer">
+            <span class="tag">社會焦慶</span><span class="tag">親職介入</span><span class="tag">文化因素</span><span class="tag">meta分析</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42538526/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📵</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>青少年自傷個體避免數位心理介入的動機：情感迴避、信任缺失與挫敗感為核心路徑</h3>
+          <p class="journal-source">BMJ paediatrics open</p>
+          <p>自傷青少年避免數位心理工具的主要原因為情感迴避、對工具效果的不信任及挫敗感，生理壓力與社會情境進一步調節此行為，提示介入需建立信任與降低威脅感。</p>
+          <div class="card-footer">
+            <span class="tag">數位介入</span><span class="tag">自傷</span><span class="tag">動機</span><span class="tag"> biopsychosocial</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42538122/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💎</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>青少年癌症幸存者離治療期間的孤獨感與焦慮、 illness perception 及行為風險相關</h3>
+          <p class="journal-source">Pediatric blood &amp;amp; cancer</p>
+          <p>在結束治療的青少年癌症幸存者中，感覺孤獨與焦慮顯著正相關，並與較低正念、增加電子菸與大麻使用相關，提示孤獨可能為情緒與行為風險的標誌。</p>
+          <div class="card-footer">
+            <span class="tag">孤獨</span><span class="tag">焦慮</span><span class="tag">癌症幸存者</span><span class="tag">正念</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42544774/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌈</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>性別與性少數青少年心理健康風險高但常規HIV預防介入對其心理症狀效果有限</h3>
+          <p class="journal-source">Journal of child psychology and psychiatry, and allied disciplines</p>
+          <p>雖然自動簡訊、線上同儕支持及強項導向教練對HIV風險降低有效，但對性別與性少數青少年的憂鬃、焦慮及心理服務使用次要 Outcomes 改善效果有限，提示需文化適應性介入。</p>
+          <div class="card-footer">
+            <span class="tag">性別少數</span><span class="tag">HIV預防</span><span class="tag">心理健康</span><span class="tag">實施科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42543151/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🩸</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>青少年抑鬱症中血液免疫標記物與臨床症狀之關聯：依BMI分層分析</h3>
+          <p class="journal-source">Journal of affective disorders</p>
+          <p>BMI升高與抑鬱症狀嚴重程度增加相關，中性球細胞count與單球/淋巴球比例(MLR)作為部分中介路徑，尤其在女性青少年中更顯著。</p>
+          <div class="card-footer">
+            <span class="tag">廣泛性焦慮</span><span class="tag">生理指標</span><span class="tag">性別差異</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42543132/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🩺</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>青少年腎臟疾病過渡期間焦慮與憂鬃：疾病嚴重程度非主要預測因，藥物負擔與性別較為關鍵</h3>
+          <p class="journal-source">Pediatric nephrology (Berlin, Germany)</p>
+          <p>在腎臟疾病青少年過渡至成人照護期間，臨床指標如eGFR與疾病期間對心理困境預測力弱，但每日藥物劑量頻率與女性性別為顯著預測因，而健康對照組反而憂鬃較高，提示結構化過渡程式可能具保護作用。</p>
+          <div class="card-footer">
+            <span class="tag">焦慮</span><span class="tag">憂鬃</span><span class="tag">慢性疾病</span><span class="tag">過渡照護</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42530570/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🏠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>托兒所離開青少年之精神障礙軌跡與生活品質：持續型群體生活品質最低</h3>
+          <p class="journal-source">Journal of child psychology and psychiatry, and allied disciplines</p>
+          <p>離開托兒所青少年中，持續性精神障礙群（47.0%）在青年期生活品質顯著較低，內化與外化障礙皆與生活品質負相關，提示早期與過渡期介入的重要性。</p>
+          <div class="card-footer">
+            <span class="tag">長期追蹤</span><span class="tag">生活品質</span><span class="tag">托兒所</span><span class="tag">精神障礙軌跡</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42530364/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💉</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>寄養青少年心理健康與問題性藥物使用：簡短介入效果受診斷影響</h3>
+          <p class="journal-source">Addiction (Abingdon, England)</p>
+          <p>寄養青少年中僅12%報告問題性物質使用，但有心理健康診斷者較可能篩檢陽性，且心理健康狀況可能影響簡短介入對物質使用軌跡的影響，提示需整合心理評估於物質使用預防。</p>
+          <div class="card-footer">
+            <span class="tag">物質使用</span><span class="tag">簡短介入</span><span class="tag">寄養</span><span class="tag">心理健康</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42530062/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">👨‍👩‍👧</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>父母-青少年關係脈絡如何調節秘密與揭露對適應的影響：晚 adolescences 中衝突加劇秘密的不良影響</h3>
+          <p class="journal-source">Journal of adolescence</p>
+          <p>低揭露與高秘密預測較高反社會行為與憂鬃，且父母-青少年衝突越高，秘密對反社會行為的負面影響越大；高自主支持親爸則使秘密與長期反社會行為關聯更強，提示關係品質對行為結果具調節作用。</p>
+          <div class="card-footer">
+            <span class="tag">家庭因素</span><span class="tag">親子關係</span><span class="tag">秘密</span><span class="tag">行為問題</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42529927/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>自殺行為與非自殺性自傷青少年血清Wnt通路調節因子Porcupine與Notum升顯著提升，提示共同生物基質</h3>
+          <p class="journal-source">Clinical psychopharmacology and neuroscience</p>
+          <p>自殺行為 disorder 與非自殺性 self-injury disorder 青少年血清 Porcupine 與 Notum 水平顯著升高，而 Dickkopf-1 無差異，提示 Wnt/β-catenin 通路可能為自傷行為的共同生物學基礎。</p>
+          <div class="card-footer">
+            <span class="tag">生理指標</span><span class="tag">自傷</span><span class="tag">生物標記</span><span class="tag">Wnt通路</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42528355/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🕒</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>單次療法作為青少年心理健康服務入口點之可行性：實施後等待時間顯著縮短</h3>
+          <p class="journal-source">Irish journal of psychological medicine</p>
+          <p>單次療法作為初級保健入口點可行，實施後等待時間從26週縮短至4.6週， distress 得分顯著下降，滿意度高，但需進一步研究效果與永續性。</p>
+          <div class="card-footer">
+            <span class="tag">單次療法</span><span class="tag">可行性研究</span><span class="tag">初級保健</span><span class="tag">等待時間</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42528098/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🦴</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>兒童骨肉瘤幸存者青少年期社會功能較佳但思考與記憶域受損，約20%經歷中度至嚴重負面影響</h3>
+          <p class="journal-source">Pediatric blood &amp;amp; cancer</p>
+          <p>兒童骨肉瘤幸存者在社交功能方面表現較好，但在思考與記憶域報告中度至嚴重負面影響者約20%，提示需長期監測特定神經認知功能。</p>
+          <div class="card-footer">
+            <span class="tag">癌症幸存者</span><span class="tag">社會功能</span><span class="tag">認知功能</span><span class="tag">長期影響</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42527971/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>抑鬱父母之子女的解讀偏見與壓力反應：未發現組間差異，但自身症狀預測解讀偏見</h3>
+          <p class="journal-source">BMC psychiatry</p>
+          <p>高風險（抑鬱父母）與低風險組在解讀偏見或壓力反應（皮質醇、情感）上無顯著差異，但子女自身憂鬃症狀正向預測其解讀偏見，提示內在狀態可能比家族史更直接影響認知處理。</p>
+          <div class="card-footer">
+            <span class="tag">憂鬃</span><span class="tag">解讀偏見</span><span class="tag">壓力反應</span><span class="tag">高風險群</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42527913/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>新生兒缺氧缺血性腦病幸存者內化障礙之掃範文献評論：證據支持較高風險但評估工具缺乏標準化</h3>
+          <p class="journal-source">Journal of perinat</p>
+          <p>在 hypoxischaemic encephalopathy (HIE) 倖存兒童及青少年中，多數研究報告較高內化症狀（焦慮、憂鬃、身體症狀），但評估方法變異大，凸顯需要標準化工具與早期篩檢。</p>
+          <div class="card-footer">
+            <span class="tag">內化障礙</span><span class="tag">HIE</span><span class="tag">掃範文獻</span><span class="tag">早期篩</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42527546/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🐭</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>孕期NO2暴露經由海馬PTGDS-PGD2通路與色氨酸代謝重程式導致小鼠焦慮憂鬃様行為，提示跨世代神經毒性</h3>
+          <p class="journal-source">Neurotoxicology</p>
+          <p>孕期NO2暴露導致雌雄小鼠後代探索行為下降、絕望時間增加，機制涉及海馬神經發炎、PTGDS-PGD2通路活化及色氨酸代謝向酚啶ヌ林途徑轉移，支持產前空氣污染對後代精神健康的跨世代影響。</p>
+          <div class="card-footer">
+            <span class="tag">產前暴露</span><span class="tag">動物模型</span><span class="tag">神經毒性</span><span class="tag">色氨酸代謝</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42526541/" target="_blank" rel="noopener">PubMed →</a>
+          </div>
+        </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">社會焦慮</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:83%"></div></div>
+              <span class="topic-count">5</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">廣泛性焦慮</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">6</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">數位介入</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">家庭因素</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">健康不平等</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">創傷</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">生理指標</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">學校介入</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+              <span class="topic-count">3</span>
+            </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">家庭因素</span><span class="keyword">社交媒體</span><span class="keyword">性別多樣性</span><span class="keyword">生理指標</span><span class="keyword">學校介入</span><span class="keyword">創傷</span><span class="keyword">健康不平等</span><span class="keyword">內化問題</span><span class="keyword">數位介入</span><span class="keyword">長期追蹤</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">🏥</span>
+        <div>
+          <div class="clinic-name">李政洋身心診所首頁</div>
+          <div class="clinic-desc">專業身心科門診服務</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">📬</span>
+        <div>
+          <div class="clinic-name">訂閱電子報</div>
+          <div class="clinic-desc">定期收到最新心理健康資訊</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+      <a href="https://buymeacoffee.com/CYlee" class="clinic-link" target="_blank" rel="noopener">
+        <span class="clinic-icon">☕</span>
+        <div>
+          <div class="clinic-name">Buy Me a Coffee</div>
+          <div class="clinic-desc">支持我們持續提供優質內容</div>
+        </div>
+        <span class="clinic-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-super-120b-a12b</span>
+    <span><a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
