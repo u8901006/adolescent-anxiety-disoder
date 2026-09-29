@@ -6,7 +6,7 @@ const API_BASE = 'https://integrate.api.nvidia.com/v1';
 
 const MODEL_FALLBACK_CHAIN = [
   'nvidia/nemotron-3-super-120b-a12b',
-  'nvidia/nemotron-3-nano-30b-a3b',
+  'nvidia/nemotron-3-ultra-550b-a55b',
 ];
 
 const SYSTEM_PROMPT = `你是青少年焦慮症研究領域的專業文獻分析師。你的任務是：
