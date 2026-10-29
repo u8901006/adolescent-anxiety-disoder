@@ -1,6 +1,11 @@
 name: Adolescent Anxiety Daily Report
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/generate_report.js"
+      - ".github/workflows/daily-report.yml"
   schedule:
     - cron: "55 13 * * *"
   workflow_dispatch:
