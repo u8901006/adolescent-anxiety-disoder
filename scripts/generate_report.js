@@ -5,8 +5,8 @@ import { parseArgs } from 'node:util';
 const API_BASE = 'https://integrate.api.nvidia.com/v1';
 
 const MODEL_FALLBACK_CHAIN = [
-  'nvidia/nemotron-3-super-120b-a12b',
-  'nvidia/nemotron-3-ultra-550b-a55b',
+  'nvidia/nemotron-3.5-lightning-30b-a3b',
+  'google/gemma-4-31b-it',
 ];
 
 const SYSTEM_PROMPT = `你是青少年焦慮症研究領域的專業文獻分析師。你的任務是：
@@ -133,11 +133,11 @@ ${papersText}
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: prompt },
     ],
-    temperature: 1.0,
-    top_p: 0.95,
+    temperature: model.startsWith('google/') ? 0.5 : 1.0,
+    top_p: model.startsWith('google/') ? 1 : 0.95,
     max_tokens: 16384,
     stream: false,
-    chat_template_kwargs: { enable_thinking: false },
+    ...(model.startsWith('nvidia/') ? { chat_template_kwargs: { enable_thinking: false } } : {}),
   };
 
   const headers = {
@@ -149,7 +149,7 @@ ${papersText}
     method: 'POST',
     headers,
     body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(480000),
+    signal: AbortSignal.timeout(180000),
   });
 
   if (resp.status === 429) {
@@ -421,7 +421,7 @@ function generateHTML(analysis, modelUsed) {
   </div>
 
   <footer>
-    <span>資料來源：PubMed &middot; 分析模型：${esc(modelUsed ?? 'nvidia/nemotron-3-super-120b-a12b')}</span>
+    <span>資料來源：PubMed &middot; 分析模型：${esc(modelUsed ?? MODEL_FALLBACK_CHAIN[0])}</span>
     <span><a href="https://github.com/u8901006/adolescent-anxiety-disoder">GitHub</a></span>
   </footer>
 </div>
@@ -465,7 +465,7 @@ async function main() {
   const papersData = loadPapers(values.input);
 
   let analysis;
-  let modelUsed = 'nvidia/nemotron-3-super-120b-a12b';
+  let modelUsed = MODEL_FALLBACK_CHAIN[0];
 
   if (!papersData?.papers?.length) {
     console.error('[WARN] No papers found, generating empty report');
